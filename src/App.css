@@ -1,0 +1,253 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  user-select: none;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0b1121; /* Dark framing for desktop */
+  overflow: hidden;
+}
+
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100dvh;
+}
+
+.game-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 480px;
+  max-height: 850px;
+  /* Replaced CSS Gradient with SVG Background inside App.tsx */
+  background-color: #020617;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 481px) {
+  .game-container {
+    height: 90vh;
+    border-radius: 32px;
+    border: 4px solid #1e293b;
+  }
+}
+
+.game-over {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-2px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(4px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-6px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(6px, 0, 0);
+  }
+}
+
+/* --- Realistic Light Rays --- */
+.light-rays {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  animation: shiftRays 20s linear infinite alternate;
+}
+
+@keyframes shiftRays {
+  from {
+    transform: translateX(0) scale(1.1);
+  }
+  to {
+    transform: translateX(-10%) scale(1.15);
+  }
+}
+
+/* --- UI Overlays --- */
+.overlay-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(15, 23, 42, 0.85); /* Darker, sleek UI panels */
+  backdrop-filter: blur(12px);
+  padding: 32px 24px;
+  border-radius: 24px;
+  text-align: center;
+  z-index: 100;
+  width: 85%;
+  max-width: 320px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.overlay-title {
+  margin: 0 0 8px 0;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #38bdf8;
+  text-shadow: 0 2px 10px rgba(56, 189, 248, 0.3);
+}
+
+.overlay-subtitle {
+  margin: 0 0 24px 0;
+  font-size: 1rem;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+.instruction-text {
+  margin-top: -12px;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+  color: #7dd3fc;
+  font-weight: 800;
+  background: rgba(2, 132, 199, 0.2);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 8px;
+  border-radius: 12px;
+  animation: pulse 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+/* --- Buttons --- */
+.btn-friendly {
+  appearance: none;
+  border: none;
+  padding: 16px 20px;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: white;
+  cursor: pointer;
+  transition:
+    transform 0.1s ease,
+    filter 0.2s ease,
+    box-shadow 0.1s ease;
+  width: 100%;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn-friendly:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn-easy {
+  background-color: #10b981;
+}
+.btn-medium {
+  background-color: #f59e0b;
+  color: #fff;
+}
+.btn-hard {
+  background-color: #e11d48;
+}
+.btn-action {
+  background-color: #0284c7;
+}
+.btn-menu {
+  background-color: #475569;
+}
+
+/* --- Game Elements --- */
+.score-display {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 4rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.9);
+  z-index: 50;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+/* --- Vertical Bubbles --- */
+.bubbles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -50px;
+  animation-name: floatUpBubble;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+@keyframes floatUpBubble {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.5);
+    opacity: 0;
+  }
+}
